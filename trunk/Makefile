@@ -27,8 +27,8 @@ OBJS = \
     $O/src/CloudDelayCenter.o \
     $O/src/CloudCongestionControl.o \
     $O/src/CloudAppTracedSource.o \
+    $O/src/Tracer.o \
     $O/src/CloudSink.o \
-    $O/src/TraceGenerator.o \
     $O/src/CloudAppDispatcherRR.o \
     $O/src/CloudAppSource.o \
     $O/src/Merge.o \
@@ -159,5 +159,6 @@ $O/src/CloudSink.o: src/CloudSink.cc \
 $O/src/Merge.o: src/Merge.cc \
 	src/Merge.h \
 	src/QueueingDefs.h
-$O/src/TraceGenerator.o: src/TraceGenerator.cc
+$O/src/Tracer.o: src/Tracer.cc \
+	src/Tracer.h
 
