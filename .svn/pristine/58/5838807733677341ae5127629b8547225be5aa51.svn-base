@@ -1,0 +1,92 @@
+//
+// This file is part of an OMNeT++/OMNEST simulation example.
+//
+// Copyright (C) 2006-2008 OpenSim Ltd.
+//
+// This file is distributed WITHOUT ANY WARRANTY. See the file
+// `license' for details on this and other legal matters.
+//
+
+#include "CloudDelayCenter.h"
+#include "CloudAppJob_m.h"
+#include "CloudCongestionUpdate_m.h"
+
+#define CONGESTIONGATENAME "congestionControl"
+
+
+namespace cloudMGn {
+
+Define_Module(CloudDelayCenter);
+
+void CloudDelayCenter::initialize() {
+    currentlyStored = 0;
+    maxDelay=par("maxDelay");
+    //delayedJobsSignal = registerSignal("delayedJobs");
+    //emit(delayedJobsSignal, 0);
+    //WATCH(currentlyStored);
+    congested=false;
+    congestionMultiplier=1.0;
+    jobs.clear();
+}
+
+void CloudDelayCenter::processNewCloudAppJob(cMessage *msg){
+    CloudAppJob *job = check_and_cast<CloudAppJob *>(msg);
+    // if it is not a self-message, send it to ourselves with a delay
+    currentlyStored++;
+    simtime_t delay = par("delay");
+    if (maxDelay>0 && delay>maxDelay) {delay=maxDelay;}
+    delay=delay * congestionMultiplier;
+    jobs[job->getId()]=job;
+    scheduleAt(simTime() + delay, job);
+}
+
+void CloudDelayCenter::processReturningCloudAppJob(cMessage *msg){
+    CloudAppJob *job = check_and_cast<CloudAppJob *>(msg);
+    job->setDelayCount(job->getDelayCount()+1);
+    simtime_t d = simTime() - job->getSendingTime();
+    job->setDelayTime(job->getDelayTime() + d);
+    // if it was a self message (ie. we have already delayed) so we send it out
+    currentlyStored--;
+    jobs.erase(job->getId());
+    send(job, "out");
+}
+
+void CloudDelayCenter::processCloudCongestionUpdateMessage(cMessage *msg){
+    CloudCongestionUpdate *umsg=check_and_cast<CloudCongestionUpdate *>(msg);
+    double oldCongestionMultiplier=congestionMultiplier;
+    jobMapIterator it;
+    congested=umsg->getCongestion();
+    if (congested){
+        congestionMultiplier=umsg->getMultiplier();
+    } else {
+        congestionMultiplier=1.0;
+    }
+    // dispose of congestionUpdate message
+    delete umsg;
+    if (currentlyStored >0){
+        // iterate over waiting jobs and update remaining time
+        for(it = jobs.begin(); it != jobs.end(); it++) {
+            // it->first = key
+            // it->second = value
+            CloudAppJob *job=check_and_cast<CloudAppJob *>(it->second);
+            cancelEvent(job);
+            simtime_t remainingTime=job->getArrivalTime() - simTime();
+            scheduleAt(simTime()+(remainingTime * congestionMultiplier/oldCongestionMultiplier), job);
+        }
+    }
+}
+
+void CloudDelayCenter::handleMessage(cMessage *msg) {
+    if (msg->isSelfMessage()) {
+        processReturningCloudAppJob(msg);
+    } else {
+        if (strcmp(msg->getArrivalGate()->getName(), CONGESTIONGATENAME)==0) {
+            processCloudCongestionUpdateMessage(msg);
+        } else {
+            processNewCloudAppJob(msg);
+        }
+    }
+}
+
+}; //namespace
+

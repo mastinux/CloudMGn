@@ -1,0 +1,12 @@
+[General]
+network = cloudMGn.simulations.Test2stateApp
+sim-time-limit = 14400s
+**.source.appId = 0
+**.sink.maxApps = 1
+**.source.sendInterval = 5s
+**.source.maxInterval = -1s
+**.congestionCtl.fromCongestionStatusInterval = exponential(5s)
+**.congestionCtl.toCongestionStatusInterval = exponential(5s)
+**.server.capacity = -1
+**.server.serviceTime = 3s
+**.server.maxServiceTime = -1s
