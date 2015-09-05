@@ -18,12 +18,13 @@
 
 #include <omnetpp.h>
 #include <string.h>
+#include <fstream>
 
 namespace cloudMGn {
 
 class Tracer : public cSimpleModule{
-//private:
-//    double interArrivalMean;
+private:
+    std::ofstream fd;
 //    cMessage *event; // pointer to the event object which we'll use for timing
 //    cMessage *msg; // variable to remember the message until we send it back
 

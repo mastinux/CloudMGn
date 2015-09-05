@@ -5,7 +5,8 @@ simple Tracer
     parameters:
         double interArrivalMean;
         double serviceMean;
-        double delayMean;        
+        double delayMean;
+        string tracesFileName;        
 //    gates:
 //        input in;
 //        output out; 

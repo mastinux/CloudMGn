@@ -17,6 +17,7 @@
 #include "Tracer.h"
 #include <omnetpp.h>
 #include <string.h>
+#include <simtime.h>
 
 namespace cloudMGn {
 
@@ -33,21 +34,48 @@ Tracer::~Tracer() {
 }
 
 void Tracer::initialize(){
-       cMessage *msg = new cMessage("messaggioDalTracer");
-       simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+    // apri file sovrascrivendo quello già esistente
+    //EV << " opening file " << par("tracesFileName").str();
+    fd.open(par("tracesFileName").stringValue());
+    //EV << "\n file open";
 
-        // invia un messaggio a se stesso
-        scheduleAt(sendingTime,msg);
+    cMessage *msg = new cMessage("messaggioDalTracer");
+    simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+
+    // invia un messaggio a se stesso
+    scheduleAt(sendingTime,msg);
 }
 
 void Tracer::handleMessage(cMessage *msg){
+    simtime_t currentSimTime = simulation.getSimTime();
     simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+    int appId = simulation.getEventNumber();
+    simtime_t serviceTime = exponential(par("serviceMean").doubleValue());
+    simtime_t delayTime = exponential(par("delayMean").doubleValue());
 
-    EV << " -appId: " << simulation.getEventNumber();
-    EV << "\t -service time: " << exponential(par("serviceMean").doubleValue());
-    EV << "\t -delay time: " << exponential(par("delayMean").doubleValue()) << "\n";
+    EV << " -simulation time: " << currentSimTime;
+    EV << "\t -appId: " << appId;
+    EV << "\t -service time: " << serviceTime;
+    EV << "\t -delay time: " << delayTime << "\n";
+
+    // data recording on file
+    //EV << "recording on file\n";
+    fd << currentSimTime.dbl() << " " << appId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+    //EV << "recorded\n";
+
+    // simtime parsing
+    //EV << "\n performing simulation time parsing\n double value:" << serviceTime.dbl();
+    //EV << "\n original value: " << serviceTime << "\n reparsed value: " << SimTime(serviceTime.dbl());
     // invia un messaggio a se stesso
     scheduleAt(simTime() + sendingTime, msg);
+
+    // TODO migliorare la qualità del controllo
+    if(simulation.getSimTime() > 3600){
+        // chiusura del file
+        //EV << "\n closing file";
+        fd.close();
+        //EV << "\n file closed";
+    }
 }
 
-} /* namespace cloudMGn */
+} /* namespace cloudMxGn */
