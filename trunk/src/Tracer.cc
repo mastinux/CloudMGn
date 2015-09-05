@@ -33,14 +33,21 @@ Tracer::~Tracer() {
 }
 
 void Tracer::initialize(){
-    if (strcmp("mainSender", getName()) == 0){
-        cMessage *msg = new cMessage("messaggioDalMainSender");
-        send(msg,"out");
-    }
+       cMessage *msg = new cMessage("messaggioDalTracer");
+       simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+
+        // invia un messaggio a se stesso
+        scheduleAt(sendingTime,msg);
 }
 
 void Tracer::handleMessage(cMessage *msg){
-    send(msg,"out");
+    simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+
+    EV << " -appId: " << simulation.getEventNumber();
+    EV << "\t -service time: " << exponential(par("serviceMean").doubleValue());
+    EV << "\t -delay time: " << exponential(par("delayMean").doubleValue()) << "\n";
+    // invia un messaggio a se stesso
+    scheduleAt(simTime() + sendingTime, msg);
 }
 
 } /* namespace cloudMGn */

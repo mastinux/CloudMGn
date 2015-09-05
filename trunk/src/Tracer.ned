@@ -2,10 +2,11 @@ package cloudMGn.src;
 
 simple Tracer
 {
-//    parameters:
-//        int maxSimulationTime = 1800;
-        
-    gates:
-        input in;
-        output out; 
+    parameters:
+        double interArrivalMean;
+        double serviceMean;
+        double delayMean;        
+//    gates:
+//        input in;
+//        output out; 
 }

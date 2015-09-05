@@ -6,11 +6,14 @@ network TracesGenerationSystem
 {
     //foo parameters
 //    parameters:
-//        int totalMessagesSent = default(0);
+//        double interArrivalMean = default(0.0);
     
     submodules:
-        mainSender: Tracer;
-        mirrorSender: Tracer;
+        tracer: Tracer;
+        
+        //mainSender: Tracer;
+        //mirrorSender: Tracer;
+        
         // foo submodules
         //a: Tracer {
         //    @display("p=126,50");
@@ -19,9 +22,11 @@ network TracesGenerationSystem
         //    @display("p=214,50");
         //}
     //foo connections
-    connections:
-        mainSender.out --> mirrorSender.in;
-        mirrorSender.out --> mainSender.in;
+//    connections:
+//        tracer.out --> tracer.in;
+        
+        //mainSender.out --> mirrorSender.in;
+        //mirrorSender.out --> mainSender.in;
         
     //    a.in <-- {  delay = 100ms; } <-- b.out;
 }
