@@ -46,7 +46,6 @@ void CloudAppSource::handleMessage(cMessage *msg)
     job->setStartTime(simTime());
     job->setQueuingTime(0.0);
 
-    //TODO successivi due parametri da inizializzare propriamente e controllare in [server] e [delay]
     job->setServiceTime(0.0);
     job->setDelayTime(0.0);
 

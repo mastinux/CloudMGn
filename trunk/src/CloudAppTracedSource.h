@@ -17,6 +17,7 @@
 #define __CLOUDAPPTRACEDSOURCE_H
 
 #include <omnetpp.h>
+#include <fstream>
 
 namespace cloudMGn {
 
@@ -25,6 +26,8 @@ class CloudAppTracedSource : public cSimpleModule
   private:
     cMessage *timerMessage;
     simtime_t maxInterval;
+    // file descriptor for reading
+    std::ifstream fd;
 
   public:
      CloudAppTracedSource();

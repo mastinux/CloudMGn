@@ -337,12 +337,23 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     ts=job->getTimestamp();
     d=now-ts;
 
-    //TODO controllare che il valore del ServiceTime sia diverso da 0
-    if (job->getServiceTime() == 0.0)
+    //EV << "\n ===== analizing CloudAppJob: " << job->getJobId() << " ===== ";
+    //EV << "\n current sim time " << now;
+    //EV << "\n calculated service time " << d;
+    //EV << "\n set service time " << job->getServiceTime() << "\n";
+
+    //TODO differenziare l'utilizzo del service time
+    //EV << " appId: " << job->getAppId() << "\n";
+    if (job->getServiceTime() == 0.0){
+        // original
+        EV << "\n service time == 0. NON TRACED CASE.\n";
         job->setServiceTime(job->getServiceTime() + d);
-    else
-    //come differenziare?
+    }
+    else{
+        EV << "\n service time != 0. TRACED CASE.\n";
         job->setServiceTime(job->getServiceTime() + d);
+    }
+    //EV << " current service time: " << job->getServiceTime() << "\n";
 
     job->setTimestamp();
     cancelTimeout(job);

@@ -17,6 +17,7 @@
 #include "CloudAppJob_m.h"
 #include <string>
 #include <iostream>
+#include <simtime.h>
 
 namespace cloudMGn {
 
@@ -36,46 +37,85 @@ void CloudAppTracedSource::initialize()
 {
     timerMessage = new cMessage("timer");
     maxInterval = par("maxInterval").doubleValue();
-    // TODO simTime da leggere dal file delle tracce
+
+    std::string fileName((par("tracesFileName").stringValue()));
+    std::string fileDirectory("../simulations/");
+    std::string filePath = fileDirectory + fileName;
+
+    //EV << " \n opening file "<< fd << " for reading: " << filePath << "\n\n";
+    fd.open(filePath);
+/*
+    if (fd.is_open())
+        EV << "\n file is open";
+    else
+        EV << "\n file is not open";
+*/
     scheduleAt(simTime(), timerMessage);
 }
 
 void CloudAppTracedSource::handleMessage(cMessage *msg)
 {
     ASSERT(msg==timerMessage);
+
+    int tracedJobId;
+    double tracedTime, tracedServiceTime, tracedDelayTime;
     simtime_t t, trand;
+
+    //reading data from file
+    fd >> tracedTime >> tracedJobId >> tracedServiceTime >> tracedDelayTime;
+/*
+    EV << "\n value red:\n - traced time:" << tracedTime;
+    EV << "\n - job id:" << tracedJobId;
+    EV << "\n - service time:" << tracedServiceTime;
+    EV << "\n - delay time:" << tracedDelayTime << "\n";
+*/
+
     // create new message
     CloudAppJob *job = new CloudAppJob(getJobName());
     job->setStartTime(simTime());
+    //EV << "\n start time for current job:\t" << job->getStartTime();
     job->setQueuingTime(0.0);
 
-    //TODO  successivi due parametri da inizializzare propriamente e controllare in [CloudAppServerTs]
-    //      e [CloudDelayCenter]
-
     //job->setServiceTime(0.0);
-    job->setServiceTime(exponential(1.1));
-    //job->setDelayTime(0.0);
-    job->setDelayTime(exponential(0.3));
+    job->setServiceTime(SimTime(tracedServiceTime));
+    //EV << "\n service time for current job:\t" << job->getServiceTime();
 
+    //job->setDelayTime(0.0);
+    job->setDelayTime(SimTime(tracedDelayTime));
+    //EV << "\n delay time for current job:\t" << job->getDelayTime();
     job->setQueueCount(0);
     job->setDelayCount(0);
+    // non fa riferimento a [CloudAppJob] ma all'oggetto che lo usa [appProc]
     job->setAppId(par("appId"));
+    //job->setJobId(tracedJobId);
+    //EV << "\n>>>>> set job id:" << job->getJobId() << endl;
+
+    //TODO usare il tracedTime dal file delle tracce
+    EV << "\n additional time for current job:\t" << SimTime(tracedTime) << "\n";
     send(job, "out");
 
     // schedule next message
-    //TODO capire in che punto leggere dal file oppure far partire i job da un sender esterno
     trand=par("sendInterval").doubleValue();
-    if (maxInterval>0 && trand>maxInterval){
+    if (maxInterval>0
+            && trand>maxInterval
+            ){
         t=simTime() + maxInterval;
     } else {
         t=simTime() + trand;
     }
     scheduleAt(t, timerMessage);
+
+    // TODO migliorare la qualità del controllo
+    if(simulation.getSimTime() > 3600){
+        // chiusura del file
+        EV << "\n closing file";
+//        fd.close();
+        EV << "\n file closed";
+    }
+
 }
 
 const char *CloudAppTracedSource::getJobName(){
-    //std::string mI (maxInterval);
-    //std::cout << "\njob with maxInterval:" << mI;
     return "job";
 }
 

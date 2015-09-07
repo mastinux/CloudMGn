@@ -65,12 +65,22 @@ void CloudDelayCenter::processReturningCloudAppJob(cMessage *msg){
     job->setDelayCount(job->getDelayCount()+1);
     simtime_t d = simTime() - job->getSendingTime();
 
-    //TODO controllare che il valore del DelayTime sia diverso da 0
-    if (job->getDelayTime() == 0)
+    //TODO differenziare l'utilizzo del delay time
+    //EV << "\n ===== analizing CloudAppJob: " << job->getJobId() << " ===== ";
+    //EV << "\n current sim time " << simTime();
+    //EV << "\n calculated delay time " << d;
+    //EV << "\n current delay time " << job->getDelayTime() << "\n";
+
+    if (job->getDelayTime() == 0){
+        // original
+        EV << "\n delay time == 0. NON TRACED CASE.\n";
         job->setDelayTime(job->getDelayTime() + d);
-    //come differenziare?
-    else
-        job->setDelayTime(job->getDelayTime() + d);
+    }
+    else{
+        EV << "\n delay time != 0. TRACED CASE.\n";
+        job->setDelayTime(job->getDelayTime() + d );
+    }
+    EV << " current delay time: " << job->getDelayTime() << "\n";
 
     // if it was a self message (ie. we have already delayed) so we send it out
     currentlyStored--;

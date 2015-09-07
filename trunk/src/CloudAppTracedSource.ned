@@ -25,6 +25,8 @@ simple CloudAppTracedSource
         double maxInterval @unit(s) = default(-1s);
         int appId;
         @display("i=block/source,gold");
+        // traces file name
+        string tracesFileName;
     gates:
         output out;
 }

@@ -48,26 +48,28 @@ void Tracer::initialize(){
 
 void Tracer::handleMessage(cMessage *msg){
     simtime_t currentSimTime = simulation.getSimTime();
-    simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
-    int appId = simulation.getEventNumber();
+    simtime_t additionalTime = exponential(par("interArrivalMean").doubleValue());
+    int jobId = simulation.getEventNumber();
     simtime_t serviceTime = exponential(par("serviceMean").doubleValue());
     simtime_t delayTime = exponential(par("delayMean").doubleValue());
 
     EV << " -simulation time: " << currentSimTime;
-    EV << "\t -appId: " << appId;
+    EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
     // data recording on file
     //EV << "recording on file\n";
-    fd << currentSimTime.dbl() << " " << appId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+//    fd << currentSimTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+    fd << additionalTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+
     //EV << "recorded\n";
 
     // simtime parsing
     //EV << "\n performing simulation time parsing\n double value:" << serviceTime.dbl();
     //EV << "\n original value: " << serviceTime << "\n reparsed value: " << SimTime(serviceTime.dbl());
     // invia un messaggio a se stesso
-    scheduleAt(simTime() + sendingTime, msg);
+    scheduleAt(simTime() + additionalTime, msg);
 
     // TODO migliorare la qualità del controllo
     if(simulation.getSimTime() > 3600){
