@@ -53,15 +53,16 @@ void Tracer::handleMessage(cMessage *msg){
     simtime_t serviceTime = exponential(par("serviceMean").doubleValue());
     simtime_t delayTime = exponential(par("delayMean").doubleValue());
 
-    EV << " -simulation time: " << currentSimTime;
+    EV << " -traced time: " << additionalTime;
+    //EV << "\t -traced time: " << additionalTime;
     EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
     // data recording on file
     //EV << "recording on file\n";
-//    fd << currentSimTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
     fd << additionalTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+//    fd << additionalTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
 
     //EV << "recorded\n";
 

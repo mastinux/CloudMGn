@@ -190,17 +190,16 @@ void CloudAppJob::setAppId(int appId)
 }
 
 // TODO metodi da usare per utilizzare i dati nel file delle tracce
-/*
 int CloudAppJob::getJobId() const
 {
-    return appId_var;
+    return jobId_var;
 }
 
-void CloudAppJob::setJobId(int appId)
+void CloudAppJob::setJobId(int jobId)
 {
-    this->appId_var = appId;
+    this->jobId_var = jobId;
 }
-*/
+
 class CloudAppJobDescriptor : public cClassDescriptor
 {
   public:

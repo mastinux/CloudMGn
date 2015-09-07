@@ -72,8 +72,9 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
 
     // create new message
     CloudAppJob *job = new CloudAppJob(getJobName());
+
     job->setStartTime(simTime());
-    //EV << "\n start time for current job:\t" << job->getStartTime();
+    //job->setStartTime(SimTime(tracedTime));
     job->setQueuingTime(0.0);
 
     //job->setServiceTime(0.0);
@@ -87,15 +88,18 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     job->setDelayCount(0);
     // non fa riferimento a [CloudAppJob] ma all'oggetto che lo usa [appProc]
     job->setAppId(par("appId"));
-    //job->setJobId(tracedJobId);
-    //EV << "\n>>>>> set job id:" << job->getJobId() << endl;
 
-    //TODO usare il tracedTime dal file delle tracce
-    EV << "\n additional time for current job:\t" << SimTime(tracedTime) << "\n";
+    //job->setJobId(tracedJobId);
+    job->setJobId(tracedJobId);
+    //EV << "\n\n current job id:\t" << job->getJobId();
+
+    EV << " sending job [ jobId=" << job->getJobId() << ", startTime=" << job->getStartTime() << " ]\n" << endl;
     send(job, "out");
 
     // schedule next message
-    trand=par("sendInterval").doubleValue();
+    //trand=par("sendInterval").doubleValue();
+    trand = SimTime(tracedTime);
+    //trand = tracedTime;
     if (maxInterval>0
             && trand>maxInterval
             ){
@@ -103,6 +107,11 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     } else {
         t=simTime() + trand;
     }
+    EV << " sending self message" << endl;
+    EV << " maxInterval: \t" << maxInterval << endl;
+    EV << " sendInterval: " << trand << endl;
+    EV << " tracedTime: \t" << tracedTime << endl;
+    EV << " next self message scheduled at: \t" << t << "\n" << endl;
     scheduleAt(t, timerMessage);
 
     // TODO migliorare la qualità del controllo
