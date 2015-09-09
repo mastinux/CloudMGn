@@ -34,51 +34,34 @@ Tracer::~Tracer() {
 }
 
 void Tracer::initialize(){
-    // apri file sovrascrivendo quello già esistente
-    //EV << " opening file " << par("tracesFileName").str();
     fd.open(par("tracesFileName").stringValue());
-    //EV << "\n file open";
 
     cMessage *msg = new cMessage("messaggioDalTracer");
-    simtime_t sendingTime = exponential(par("interArrivalMean").doubleValue());
+    simtime_t sendingTime = par("interArrival");
 
-    // invia un messaggio a se stesso
     scheduleAt(sendingTime,msg);
 }
 
 void Tracer::handleMessage(cMessage *msg){
     simtime_t currentSimTime = simulation.getSimTime();
-    simtime_t additionalTime = exponential(par("interArrivalMean").doubleValue());
+    simtime_t additionalTime = par("interArrival");
+    simtime_t tracedTime = currentSimTime + additionalTime;
     int jobId = simulation.getEventNumber();
-    simtime_t serviceTime = exponential(par("serviceMean").doubleValue());
-    simtime_t delayTime = exponential(par("delayMean").doubleValue());
+    simtime_t serviceTime = par("service");
+    simtime_t delayTime = par("delay");
 
-    EV << " -traced time: " << additionalTime;
-    //EV << "\t -traced time: " << additionalTime;
+    EV << " -traced time: " << tracedTime;
     EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
-    // data recording on file
-    //EV << "recording on file\n";
-    fd << additionalTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
-//    fd << additionalTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+    fd << tracedTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
 
-    //EV << "recorded\n";
+    scheduleAt(tracedTime, msg);
+}
 
-    // simtime parsing
-    //EV << "\n performing simulation time parsing\n double value:" << serviceTime.dbl();
-    //EV << "\n original value: " << serviceTime << "\n reparsed value: " << SimTime(serviceTime.dbl());
-    // invia un messaggio a se stesso
-    scheduleAt(simTime() + additionalTime, msg);
-
-    // TODO migliorare la qualità del controllo
-    if(simulation.getSimTime() > 3600){
-        // chiusura del file
-        //EV << "\n closing file";
-        fd.close();
-        //EV << "\n file closed";
-    }
+void Tracer::finish(){
+    fd.close();
 }
 
 } /* namespace cloudMxGn */

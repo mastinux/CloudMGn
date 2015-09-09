@@ -25,7 +25,7 @@ import cloudMGn.src.CloudSink;
 network CloudDataCenterTS
 {
     parameters:
-        int nApps = default(1);
+        int nApps = default(1);        
         // sink parameters
         sink.maxApps = nApps;
     submodules:

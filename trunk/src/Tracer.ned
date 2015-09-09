@@ -3,9 +3,9 @@ package cloudMGn.src;
 simple Tracer
 {
     parameters:
-        double interArrivalMean;
-        double serviceMean;
-        double delayMean;
+        double interArrival;
+        double service;
+        double delay;
         string tracesFileName;        
 //    gates:
 //        input in;
