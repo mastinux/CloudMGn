@@ -25,7 +25,6 @@ network CloudDataCenterTS
 {
     parameters:
         int nApps = default(1);
-                     
 		// sink parameters
         sink.maxApps = nApps;
     submodules:

@@ -44,6 +44,11 @@ void CloudAppTracedSource::initialize()
 
     fd.open(filePath);
 
+    std::fstream next_fd;
+    next_fd.open("file", std::fstream::out | std::fstream::trunc);
+    next_fd << 1 << endl;
+    next_fd.close();
+
     scheduleAt(simTime(), timerMessage);
 }
 
@@ -71,11 +76,24 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     job->setDelayCount(0);
     job->setAppId(par("appId"));
 
-    //TODO creare job ID univoco per la simulazione
-    // override di cPar che se legge il valore lo aumenta
-    //job->setJobId(tracedJobId);
+    // read from file, and overwrite next job id
+    int nextJobId;
+    std::fstream next_fd;
+    std::string fileName((par("nextJobIdFileName").stringValue()));
+    std::string fileDirectory("../simulations/");
+    std::string filePath = fileDirectory + fileName;
 
-//    EV << "\n sending job " << job->getJobId() << " at: " << job->getStartTime() << endl;
+    next_fd.open("file", std::fstream::in);
+    next_fd >> nextJobId;
+    next_fd.close();
+
+    next_fd.open("file", std::fstream::out | std::fstream::trunc);
+    next_fd << (nextJobId + 1) << endl;
+    next_fd.close();
+
+    job->setJobId(nextJobId);
+
+    //EV << "\n >>>>>>>>> sending job " << job->getJobId() << " at: " << job->getStartTime() << endl;
     send(job, "out");
 
     t=SimTime(tracedTime);

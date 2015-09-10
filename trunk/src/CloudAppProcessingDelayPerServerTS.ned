@@ -20,7 +20,7 @@ module CloudAppProcessingDelayPerServerTS
         int nServers;
         double timeout @unit(s) = default(-1s);
         // source parameters
-        source.appId = appId;
+        source.appId = appId;        
         source.sendInterval = default(exponential(1s));
         source.maxInterval = default(-1s);
         // server parameters
