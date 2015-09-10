@@ -18,15 +18,15 @@ package cloudMGn.simulations;
 import cloudMGn.src.CloudAppProcessingDelayPerServerTS;
 import cloudMGn.src.CloudSink;
 
-
 //
 // Sample network, consisting of a source and a sink.
 //
 network CloudDataCenterTS
 {
     parameters:
-        int nApps = default(1);        
-        // sink parameters
+        int nApps = default(1);
+                     
+		// sink parameters
         sink.maxApps = nApps;
     submodules:
         appProc[nApps]: CloudAppProcessingDelayPerServerTS {

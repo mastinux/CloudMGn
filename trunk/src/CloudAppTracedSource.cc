@@ -71,11 +71,15 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     job->setDelayCount(0);
     job->setAppId(par("appId"));
 
-    int jobId = 0;
-    job->setJobId(tracedJobId);
+    //TODO creare job ID univoco per la simulazione
+    // override di cPar che se legge il valore lo aumenta
+    //job->setJobId(tracedJobId);
+
+//    EV << "\n sending job " << job->getJobId() << " at: " << job->getStartTime() << endl;
     send(job, "out");
 
     t=SimTime(tracedTime);
+    //EV << "\n sending self message at: " << t << endl;
     scheduleAt(t, timerMessage);
 }
 
