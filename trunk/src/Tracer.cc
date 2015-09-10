@@ -46,16 +46,16 @@ void Tracer::handleMessage(cMessage *msg){
     simtime_t currentSimTime = simulation.getSimTime();
     simtime_t additionalTime = par("interArrival");
     simtime_t tracedTime = currentSimTime + additionalTime;
-    int jobId = simulation.getEventNumber();
+    //int jobId = simulation.getEventNumber();
     simtime_t serviceTime = par("service");
     simtime_t delayTime = par("delay");
 
     EV << " -traced time: " << tracedTime;
-    EV << "\t -jobId: " << jobId;
+    //EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
-    fd << tracedTime.dbl() << " " << jobId << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+    fd << tracedTime.dbl() << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
 
     scheduleAt(tracedTime, msg);
 }

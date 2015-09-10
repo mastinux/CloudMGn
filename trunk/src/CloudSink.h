@@ -38,6 +38,12 @@ class CloudSink : public cSimpleModule
     std::vector<cPSquare *> queuingTimeStat;
     std::vector<cPSquare *> serviceTimeStat;
 
+    // foo output vector
+    long numSent;
+    long numReceived;
+    cLongHistogram fooStat;
+    cOutVector fooVector;
+
   public:
     virtual ~CloudSink();
 

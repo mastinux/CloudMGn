@@ -97,6 +97,12 @@ void CloudSink::handleMessage(cMessage *msg)
     queuingTimeStat[appId]->collect(job->getQueuingTime());
     serviceTimeStat[appId]->collect(job->getServiceTime());
 
+    //TODO
+    EV << "\n recording foo statistics \n";
+    double count = job->getServiceTime().dbl();
+    fooStat.collect(count);
+    fooVector.record(count);
+
     delete msg;
 }
 
@@ -129,6 +135,12 @@ void CloudSink::finish()
         recordScalar(p90qtname.str().c_str(), queuingTimeStat[i]->getBasepoint(9));
         recordScalar(p90stname.str().c_str(), serviceTimeStat[i]->getBasepoint(9));
     }
+
+    //TODO
+    recordScalar("#sent", numSent);
+    recordScalar("#received", numReceived);
+    fooStat.recordAs("hop count");
+
 }
 
 }; // namespace

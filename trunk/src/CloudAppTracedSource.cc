@@ -56,11 +56,10 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
 {
     ASSERT(msg==timerMessage);
 
-    int tracedJobId;
     double tracedTime, tracedServiceTime, tracedDelayTime;
     simtime_t t, trand;
 
-    fd >> tracedTime >> tracedJobId >> tracedServiceTime >> tracedDelayTime;
+    fd >> tracedTime >> tracedServiceTime >> tracedDelayTime;
 
     // create new message
     CloudAppJob *job = new CloudAppJob(getJobName());
