@@ -45,7 +45,6 @@ class CloudAppJob : public ::cMessage
     int queueCount_var;
     int delayCount_var;
     int appId_var;
-    // TODO aggiungere parametro da impostare in base al file delle tracce
     int jobId_var;
 
   private:
@@ -79,7 +78,6 @@ class CloudAppJob : public ::cMessage
     virtual void setDelayCount(int delayCount);
     virtual int getAppId() const;
     virtual void setAppId(int appId);
-    // TODO metodi da usare per utilizzare i dati nel file delle tracce
     virtual int getJobId() const;
     virtual void setJobId(int jobId);
 };

@@ -92,7 +92,7 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
 
     job->setJobId(nextJobId);
 
-    //EV << "\n >>>>>>>>> sending job " << job->getJobId() << " at: " << job->getStartTime() << endl;
+    EV << "\n >>>>>>>>> sending job " << job->getJobId() << " at: " << job->getStartTime() << "\n" << endl;
     send(job, "out");
 
     t=SimTime(tracedTime);

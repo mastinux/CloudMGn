@@ -189,7 +189,6 @@ void CloudAppJob::setAppId(int appId)
     this->appId_var = appId;
 }
 
-// TODO metodi da usare per utilizzare i dati nel file delle tracce
 int CloudAppJob::getJobId() const
 {
     return jobId_var;

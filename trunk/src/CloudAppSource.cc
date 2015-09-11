@@ -53,8 +53,8 @@ void CloudAppSource::handleMessage(cMessage *msg)
     job->setDelayCount(0);
     job->setAppId(par("appId"));
     send(job, "out");
+
     // schedule next message
-    //TODO capire in che punto leggere dal file oppure far partire i job da un sender esterno
     trand=par("sendInterval").doubleValue();
     if (maxInterval>0 && trand>maxInterval){
         t=simTime() + maxInterval;

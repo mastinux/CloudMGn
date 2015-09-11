@@ -1,14 +1,14 @@
 version 2
-run General-0-20150910-15:44:54-14744
+run General-0-20150911-17:52:20-21129
 attr configname General
-attr datetime 20150910-15:44:54
+attr datetime 20150911-17:52:20
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network CloudDataCenterTS
-attr processid 14744
+attr processid 21129
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -67,27 +67,3 @@ scalar CloudDataCenterTS.sink 	p90_responseTime_1 	2.4634778662165
 scalar CloudDataCenterTS.sink 	p90_delayTime_1 	0.72509708326217
 scalar CloudDataCenterTS.sink 	p90_queuingTime_1 	0.36192890533445
 scalar CloudDataCenterTS.sink 	p90_serviceTime_1 	2.6473769263498
-scalar CloudDataCenterTS.sink 	#sent 	0
-scalar CloudDataCenterTS.sink 	#received 	0
-statistic CloudDataCenterTS.sink 	"hop count"
-field count 7536
-field mean 1.0274681528662
-field stddev 0.93811951650827
-field sum 7743
-field sqrsum 14587
-field min 0
-field max 9
-attr type  int
-bin	-INF	0
-bin	-3	0
-bin	-2	0
-bin	-1	0
-bin	0	2166
-bin	1	3741
-bin	2	1102
-bin	3	364
-bin	4	129
-bin	5	23
-bin	6	6
-bin	7	2
-bin	8	3

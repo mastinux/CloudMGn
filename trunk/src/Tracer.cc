@@ -24,12 +24,10 @@ namespace cloudMGn {
 Define_Module(Tracer);
 
 Tracer::Tracer() {
-    // TODO Auto-generated constructor stub
 
 }
 
 Tracer::~Tracer() {
-    // TODO Auto-generated destructor stub
 
 }
 
