@@ -1,0 +1,195 @@
+E # 0 t 0 m 1 ce -1 msg -1
+SB v 1030 rid NoTimeshared-0-20150912-10:11:41-6498 b 1000
+KF p -1 c "" s ""
+MC id 1 c cModule t cloudMGn.simulations.CloudDataCenterTS n CloudDataCenterTS cm 1
+MS id 1 d ""
+MC id 2 c cModule t cloudMGn.src.CloudAppProcessingDelayPerServerTS pid 1 n appProc[0] cm 1
+GC m 2 g 1 n out o 1
+MS id 2 d i=block/network
+MC id 3 c cModule t cloudMGn.src.CloudAppProcessingDelayPerServerTS pid 1 n appProc[1] cm 1
+GC m 3 g 1 n out o 1
+MS id 3 d i=block/network
+MC id 4 c cloudMGn::CloudSink t cloudMGn.src.CloudSink pid 1 n sink
+MS id 4 d i=block/sink
+GC m 4 g 1048576 n in i 0 o 0
+CC sm 2 sg 1 dm 4 dg 1048576
+GC m 4 g 1048577 n in i 1 o 0
+CC sm 3 sg 1 dm 4 dg 1048577
+MC id 5 c cloudMGn::CloudAppSource t cloudMGn.src.CloudAppSource pid 2 n source
+GC m 5 g 1 n out o 1
+MS id 5 d i=block/source
+MC id 6 c cloudMGn::CloudAppServerTS t cloudMGn.src.CloudAppServerTS pid 2 n server[0]
+GC m 6 g 0 n congestionControl o 0
+GC m 6 g 5 n out o 1
+MS id 6 d i=block/queue,cyan;q=queue
+MC id 7 c cloudMGn::CloudAppServerTS t cloudMGn.src.CloudAppServerTS pid 2 n server[1]
+GC m 7 g 0 n congestionControl o 0
+GC m 7 g 5 n out o 1
+MS id 7 d i=block/queue,cyan;q=queue
+MC id 8 c cloudMGn::CloudAppDispatcherRR t cloudMGn.src.CloudAppDispatcherRR pid 2 n dispatcher
+GC m 8 g 0 n in o 0
+MS id 8 d i=block/fork
+MC id 9 c cloudMGn::CloudDelayCenter t cloudMGn.src.CloudDelayCenter pid 2 n delay[0]
+GC m 9 g 0 n congestionControl o 0
+GC m 9 g 5 n out o 1
+MS id 9 d i=block/delay,cyan
+MC id 10 c cloudMGn::CloudDelayCenter t cloudMGn.src.CloudDelayCenter pid 2 n delay[1]
+GC m 10 g 0 n congestionControl o 0
+GC m 10 g 5 n out o 1
+MS id 10 d i=block/delay,cyan
+MC id 11 c cloudMGn::CloudCongestionControl t cloudMGn.src.CloudCongestionControl pid 2 n congCtl[0]
+MS id 11 d i=block/cogwheel
+MC id 12 c cloudMGn::CloudCongestionControl t cloudMGn.src.CloudCongestionControl pid 2 n congCtl[1]
+MS id 12 d i=block/cogwheel
+MC id 13 c cloudMGn::Merge t cloudMGn.src.Merge pid 2 n merge
+GC m 13 g 3 n out o 1
+MS id 13 d i=block/join
+CC sm 5 sg 1 dm 8 dg 0
+GC m 8 g 2621440 n out i 0 o 1
+GC m 6 g 2097152 n in i 0 o 0
+CC sm 8 sg 2621440 dm 6 dg 2097152
+GC m 9 g 2097152 n in i 0 o 0
+CC sm 6 sg 5 dm 9 dg 2097152
+GC m 11 g 1572864 n congestionControl i 0 o 1
+CC sm 11 sg 1572864 dm 6 dg 0
+GC m 11 g 1572865 n congestionControl i 1 o 1
+CC sm 11 sg 1572865 dm 9 dg 0
+GC m 13 g 1048576 n in i 0 o 0
+CC sm 9 sg 5 dm 13 dg 1048576
+GC m 8 g 2621441 n out i 1 o 1
+GC m 7 g 2097152 n in i 0 o 0
+CC sm 8 sg 2621441 dm 7 dg 2097152
+GC m 10 g 2097152 n in i 0 o 0
+CC sm 7 sg 5 dm 10 dg 2097152
+GC m 12 g 1572864 n congestionControl i 0 o 1
+CC sm 12 sg 1572864 dm 7 dg 0
+GC m 12 g 1572865 n congestionControl i 1 o 1
+CC sm 12 sg 1572865 dm 10 dg 0
+GC m 13 g 1048577 n in i 1 o 0
+CC sm 10 sg 5 dm 13 dg 1048577
+CC sm 13 sg 3 dm 2 dg 1
+MC id 14 c cloudMGn::CloudAppSource t cloudMGn.src.CloudAppSource pid 3 n source
+GC m 14 g 1 n out o 1
+MS id 14 d i=block/source
+MC id 15 c cloudMGn::CloudAppServerTS t cloudMGn.src.CloudAppServerTS pid 3 n server[0]
+GC m 15 g 0 n congestionControl o 0
+GC m 15 g 5 n out o 1
+MS id 15 d i=block/queue,cyan;q=queue
+MC id 16 c cloudMGn::CloudAppServerTS t cloudMGn.src.CloudAppServerTS pid 3 n server[1]
+GC m 16 g 0 n congestionControl o 0
+GC m 16 g 5 n out o 1
+MS id 16 d i=block/queue,cyan;q=queue
+MC id 17 c cloudMGn::CloudAppDispatcherRR t cloudMGn.src.CloudAppDispatcherRR pid 3 n dispatcher
+GC m 17 g 0 n in o 0
+MS id 17 d i=block/fork
+MC id 18 c cloudMGn::CloudDelayCenter t cloudMGn.src.CloudDelayCenter pid 3 n delay[0]
+GC m 18 g 0 n congestionControl o 0
+GC m 18 g 5 n out o 1
+MS id 18 d i=block/delay,cyan
+MC id 19 c cloudMGn::CloudDelayCenter t cloudMGn.src.CloudDelayCenter pid 3 n delay[1]
+GC m 19 g 0 n congestionControl o 0
+GC m 19 g 5 n out o 1
+MS id 19 d i=block/delay,cyan
+MC id 20 c cloudMGn::CloudCongestionControl t cloudMGn.src.CloudCongestionControl pid 3 n congCtl[0]
+MS id 20 d i=block/cogwheel
+MC id 21 c cloudMGn::CloudCongestionControl t cloudMGn.src.CloudCongestionControl pid 3 n congCtl[1]
+MS id 21 d i=block/cogwheel
+MC id 22 c cloudMGn::Merge t cloudMGn.src.Merge pid 3 n merge
+GC m 22 g 3 n out o 1
+MS id 22 d i=block/join
+CC sm 14 sg 1 dm 17 dg 0
+GC m 17 g 2621440 n out i 0 o 1
+GC m 15 g 2097152 n in i 0 o 0
+CC sm 17 sg 2621440 dm 15 dg 2097152
+GC m 18 g 2097152 n in i 0 o 0
+CC sm 15 sg 5 dm 18 dg 2097152
+GC m 20 g 1572864 n congestionControl i 0 o 1
+CC sm 20 sg 1572864 dm 15 dg 0
+GC m 20 g 1572865 n congestionControl i 1 o 1
+CC sm 20 sg 1572865 dm 18 dg 0
+GC m 22 g 1048576 n in i 0 o 0
+CC sm 18 sg 5 dm 22 dg 1048576
+GC m 17 g 2621441 n out i 1 o 1
+GC m 16 g 2097152 n in i 0 o 0
+CC sm 17 sg 2621441 dm 16 dg 2097152
+GC m 19 g 2097152 n in i 0 o 0
+CC sm 16 sg 5 dm 19 dg 2097152
+GC m 21 g 1572864 n congestionControl i 0 o 1
+CC sm 21 sg 1572864 dm 16 dg 0
+GC m 21 g 1572865 n congestionControl i 1 o 1
+CC sm 21 sg 1572865 dm 19 dg 0
+GC m 22 g 1048577 n in i 1 o 0
+CC sm 19 sg 5 dm 22 dg 1048577
+CC sm 22 sg 3 dm 3 dg 1
+MB sm 1 tm 2 m initialize(0)
+ME
+MB sm 1 tm 5 m initialize(0)
+CM id 0 tid 0 eid 0 etid 0 c cMessage n timer pe -1
+BS id 0 tid 0 eid 0 etid 0 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 6 m initialize(0)
+CM id 1 tid 1 eid 1 etid 1 c cMessage n end-service pe -1
+CM id 2 tid 2 eid 2 etid 2 c cMessage n context-switch pe -1
+CM id 3 tid 3 eid 3 etid 3 c cMessage n timeout pe -1
+ME
+MB sm 1 tm 7 m initialize(0)
+CM id 4 tid 4 eid 4 etid 4 c cMessage n end-service pe -1
+CM id 5 tid 5 eid 5 etid 5 c cMessage n context-switch pe -1
+CM id 6 tid 6 eid 6 etid 6 c cMessage n timeout pe -1
+ME
+MB sm 1 tm 8 m initialize(0)
+ME
+MB sm 1 tm 9 m initialize(0)
+ME
+MB sm 1 tm 10 m initialize(0)
+ME
+MB sm 1 tm 11 m initialize(0)
+CM id 7 tid 7 eid 7 etid 7 c cMessage n timer pe -1
+BS id 7 tid 7 eid 7 etid 7 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 12 m initialize(0)
+CM id 8 tid 8 eid 8 etid 8 c cMessage n timer pe -1
+BS id 8 tid 8 eid 8 etid 8 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 13 m initialize(0)
+ME
+MB sm 1 tm 3 m initialize(0)
+ME
+MB sm 1 tm 14 m initialize(0)
+CM id 9 tid 9 eid 9 etid 9 c cMessage n timer pe -1
+BS id 9 tid 9 eid 9 etid 9 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 15 m initialize(0)
+CM id 10 tid 10 eid 10 etid 10 c cMessage n end-service pe -1
+CM id 11 tid 11 eid 11 etid 11 c cMessage n context-switch pe -1
+CM id 12 tid 12 eid 12 etid 12 c cMessage n timeout pe -1
+ME
+MB sm 1 tm 16 m initialize(0)
+CM id 13 tid 13 eid 13 etid 13 c cMessage n end-service pe -1
+CM id 14 tid 14 eid 14 etid 14 c cMessage n context-switch pe -1
+CM id 15 tid 15 eid 15 etid 15 c cMessage n timeout pe -1
+ME
+MB sm 1 tm 17 m initialize(0)
+ME
+MB sm 1 tm 18 m initialize(0)
+ME
+MB sm 1 tm 19 m initialize(0)
+ME
+MB sm 1 tm 20 m initialize(0)
+CM id 16 tid 16 eid 16 etid 16 c cMessage n timer pe -1
+BS id 16 tid 16 eid 16 etid 16 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 21 m initialize(0)
+CM id 17 tid 17 eid 17 etid 17 c cMessage n timer pe -1
+BS id 17 tid 17 eid 17 etid 17 c cMessage n timer pe 0
+ES t 0
+ME
+MB sm 1 tm 22 m initialize(0)
+ME
+MB sm 1 tm 4 m initialize(0)
+ME
