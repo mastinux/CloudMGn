@@ -1,69 +1,69 @@
 version 2
-run Timeshared-0-20150729-10:37:01-5716
+run Timeshared-0-20150914-18:07:21-9327
 attr configname Timeshared
-attr datetime 20150729-10:37:01
+attr datetime 20150914-18:07:21
 attr experiment Timeshared
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network CloudDataCenterTS
-attr processid 5716
+attr processid 9327
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
 
-scalar CloudDataCenterTS.appProc[0].server[0] 	rho 	0.76824897527695
-scalar CloudDataCenterTS.appProc[0].server[0] 	congestionRatio 	0
-scalar CloudDataCenterTS.appProc[0].server[0] 	totalJobs 	7
+scalar CloudDataCenterTS.appProc[0].server[0] 	rho 	0.46925014257431
+scalar CloudDataCenterTS.appProc[0].server[0] 	congestionRatio 	0.29044562578201
+scalar CloudDataCenterTS.appProc[0].server[0] 	totalJobs 	2262
 scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsQueue 	0
 scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[0].server[1] 	rho 	0.92805546522141
-scalar CloudDataCenterTS.appProc[0].server[1] 	congestionRatio 	0
-scalar CloudDataCenterTS.appProc[0].server[1] 	totalJobs 	7
+scalar CloudDataCenterTS.appProc[0].server[1] 	rho 	0.44120252132416
+scalar CloudDataCenterTS.appProc[0].server[1] 	congestionRatio 	0.26857557892799
+scalar CloudDataCenterTS.appProc[0].server[1] 	totalJobs 	2261
 scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsQueue 	0
 scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[0].delay[0] 	totalJobs 	7
+scalar CloudDataCenterTS.appProc[0].delay[0] 	totalJobs 	2262
 scalar CloudDataCenterTS.appProc[0].delay[0] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[0].delay[0] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[0].delay[1] 	totalJobs 	2
+scalar CloudDataCenterTS.appProc[0].delay[1] 	totalJobs 	2261
 scalar CloudDataCenterTS.appProc[0].delay[1] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[0].delay[1] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[1].server[0] 	rho 	0.81786572933197
-scalar CloudDataCenterTS.appProc[1].server[0] 	congestionRatio 	0
-scalar CloudDataCenterTS.appProc[1].server[0] 	totalJobs 	6
+scalar CloudDataCenterTS.appProc[1].server[0] 	rho 	0.47263076901436
+scalar CloudDataCenterTS.appProc[1].server[0] 	congestionRatio 	0.25769883394241
+scalar CloudDataCenterTS.appProc[1].server[0] 	totalJobs 	2262
 scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsQueue 	0
 scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[1].server[1] 	rho 	0.83189761638641
-scalar CloudDataCenterTS.appProc[1].server[1] 	congestionRatio 	0
-scalar CloudDataCenterTS.appProc[1].server[1] 	totalJobs 	6
+scalar CloudDataCenterTS.appProc[1].server[1] 	rho 	0.46973931789398
+scalar CloudDataCenterTS.appProc[1].server[1] 	congestionRatio 	0.20991192758083
+scalar CloudDataCenterTS.appProc[1].server[1] 	totalJobs 	2261
 scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsQueue 	0
 scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[1].delay[0] 	totalJobs 	6
+scalar CloudDataCenterTS.appProc[1].delay[0] 	totalJobs 	2260
 scalar CloudDataCenterTS.appProc[1].delay[0] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[1].delay[0] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.appProc[1].delay[1] 	totalJobs 	2
+scalar CloudDataCenterTS.appProc[1].delay[1] 	totalJobs 	2260
 scalar CloudDataCenterTS.appProc[1].delay[1] 	droppedJobsTimout 	0
 scalar CloudDataCenterTS.appProc[1].delay[1] 	droppedJobsTotal 	0
-scalar CloudDataCenterTS.sink 	avg_responseTime_0 	0.8000155636765
-scalar CloudDataCenterTS.sink 	avg_delayTime_0 	0.075930900733875
-scalar CloudDataCenterTS.sink 	avg_queuingTime_0 	0.15971594404638
-scalar CloudDataCenterTS.sink 	avg_serviceTime_0 	0.56436871889625
-scalar CloudDataCenterTS.sink 	p90_responseTime_0 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_delayTime_0 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_queuingTime_0 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_serviceTime_0 	-1e+50
-scalar CloudDataCenterTS.sink 	avg_responseTime_1 	1.186752865064
-scalar CloudDataCenterTS.sink 	avg_delayTime_1 	0.099571525587125
-scalar CloudDataCenterTS.sink 	avg_queuingTime_1 	0.38455208119938
-scalar CloudDataCenterTS.sink 	avg_serviceTime_1 	0.7026292582775
-scalar CloudDataCenterTS.sink 	p90_responseTime_1 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_delayTime_1 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_queuingTime_1 	-1e+50
-scalar CloudDataCenterTS.sink 	p90_serviceTime_1 	-1e+50
+scalar CloudDataCenterTS.sink 	avg_responseTime_0 	0.98058540743586
+scalar CloudDataCenterTS.sink 	avg_delayTime_0 	0.23424503091103
+scalar CloudDataCenterTS.sink 	avg_queuingTime_0 	0.14635367259588
+scalar CloudDataCenterTS.sink 	avg_serviceTime_0 	1.3537617472722
+scalar CloudDataCenterTS.sink 	p90_responseTime_0 	2.1164373290641
+scalar CloudDataCenterTS.sink 	p90_delayTime_0 	0.37644098542654
+scalar CloudDataCenterTS.sink 	p90_queuingTime_0 	0.42059973591759
+scalar CloudDataCenterTS.sink 	p90_serviceTime_0 	2.2795716043625
+scalar CloudDataCenterTS.sink 	avg_responseTime_1 	1.0115343105467
+scalar CloudDataCenterTS.sink 	avg_delayTime_1 	0.23146639734815
+scalar CloudDataCenterTS.sink 	avg_queuingTime_1 	0.15517405653457
+scalar CloudDataCenterTS.sink 	avg_serviceTime_1 	1.3788990969747
+scalar CloudDataCenterTS.sink 	p90_responseTime_1 	2.0444617753532
+scalar CloudDataCenterTS.sink 	p90_delayTime_1 	0.36719119180583
+scalar CloudDataCenterTS.sink 	p90_queuingTime_1 	0.31816252954283
+scalar CloudDataCenterTS.sink 	p90_serviceTime_1 	2.2590047207268

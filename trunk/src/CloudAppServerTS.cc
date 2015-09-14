@@ -41,7 +41,6 @@ CloudAppServerTS::~CloudAppServerTS() {
     cancelAndDelete(endServiceMsg);
     cancelAndDelete(contextSwitchMsg);
     cancelAndDelete(timeoutMsg);
-
 }
 
 void CloudAppServerTS::initialize() {
@@ -337,7 +336,14 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     ts=job->getTimestamp();
     d=now-ts;
 
-    job->setServiceTime(job->getServiceTime() + d);
+    //TODO continue debugging
+    EV << "\n setting service time for job: " << job->getJobId() << "\n" << endl;
+    if(job->getServiceTime() == 0){
+        job->setServiceTime(job->getServiceTime() + d);
+    }
+    else{
+        job->setServiceTime(job->getServiceTime());
+    }
 
     job->setTimestamp();
     cancelTimeout(job);
