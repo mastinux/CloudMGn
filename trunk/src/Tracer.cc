@@ -46,19 +46,27 @@ void Tracer::handleMessage(cMessage *msg){
 
     simtime_t additionalTime = par("interArrival");
     simtime_t tracedTime = currentSimTime + additionalTime;
+    //dynamic case
     simtime_t serviceTime = exponential(par("service").doubleValue());
     simtime_t delayTime = exponential(par("delay").doubleValue());
+    //static case
+    //simtime_t serviceTime = par("service");
+    //simtime_t delayTime = par("delay");
 
     simtime_t additionalTime_1 = par("interArrival");
     simtime_t tracedTime_1 = currentSimTime + additionalTime_1;
+    //dynamic case
     simtime_t serviceTime_1 = exponential(par("service").doubleValue());
     simtime_t delayTime_1 = exponential(par("delay").doubleValue());
-
+    //static case
+    //simtime_t serviceTime_1 = par("service");
+    //simtime_t delayTime_1 = par("delay");
+/*
     EV << " -traced time: " << tracedTime;
     //EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
-
+*/
     fd_server_0 << tracedTime.dbl() << " " << serviceTime.dbl() << " " << delayTime.dbl() << endl;
     fd_server_1 << tracedTime_1.dbl() << " " << serviceTime_1.dbl() << " " << delayTime_1.dbl() << endl;
 

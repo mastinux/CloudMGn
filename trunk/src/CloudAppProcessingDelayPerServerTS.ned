@@ -35,9 +35,9 @@ module CloudAppProcessingDelayPerServerTS
         output out;
     submodules:
         // classic source 
-        //source: CloudAppSource;
+        source: CloudAppSource;
         // traced source
-        source: CloudAppTracedSource;
+       	//source: CloudAppTracedSource;
         // FIXME: should add also
         server[nServers]: CloudAppServerTS;
         dispatcher: CloudAppDispatcherRR;

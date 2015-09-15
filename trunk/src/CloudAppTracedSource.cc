@@ -73,6 +73,7 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     CloudAppJob *job = new CloudAppJob(getJobName());
     job->setStartTime(simTime());
     job->setQueuingTime(0.0);
+    job->setTracedFlag(true);
 
     //job->setServiceTime(0.0);
     job->setServiceTime(SimTime(tracedServiceTime));

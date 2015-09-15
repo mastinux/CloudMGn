@@ -66,13 +66,9 @@ void CloudDelayCenter::processReturningCloudAppJob(cMessage *msg){
     simtime_t d = simTime() - job->getSendingTime();
 
     //TODO continue debugging
-    EV << "\n setting delay time for job:" << job->getJobId() << endl;
-    if (job->getDelayTime() == 0){
+    if(!job->getTracedFlag())
         job->setDelayTime(job->getDelayTime() + d);
-    }
-    else{
-        job->setDelayTime(job->getDelayTime());
-    }
+
     // if it was a self message (ie. we have already delayed) so we send it out
     currentlyStored--;
     jobs.erase(job->getId());

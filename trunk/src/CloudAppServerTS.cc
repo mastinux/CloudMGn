@@ -337,13 +337,8 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     d=now-ts;
 
     //TODO continue debugging
-    EV << "\n setting service time for job: " << job->getJobId() << "\n" << endl;
-    if(job->getServiceTime() == 0){
+    if(!job->getTracedFlag())
         job->setServiceTime(job->getServiceTime() + d);
-    }
-    else{
-        job->setServiceTime(job->getServiceTime());
-    }
 
     job->setTimestamp();
     cancelTimeout(job);

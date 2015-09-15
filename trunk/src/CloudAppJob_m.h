@@ -46,6 +46,7 @@ class CloudAppJob : public ::cMessage
     int delayCount_var;
     int appId_var;
     int jobId_var;
+    bool tracedFlag = false;
 
   private:
     void copy(const CloudAppJob& other);
@@ -80,6 +81,8 @@ class CloudAppJob : public ::cMessage
     virtual void setAppId(int appId);
     virtual int getJobId() const;
     virtual void setJobId(int jobId);
+    virtual bool getTracedFlag() const;
+    virtual void setTracedFlag(bool flag);
 };
 
 inline void doPacking(cCommBuffer *b, CloudAppJob& obj) {obj.parsimPack(b);}

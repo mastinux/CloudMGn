@@ -199,6 +199,16 @@ void CloudAppJob::setJobId(int jobId)
     this->jobId_var = jobId;
 }
 
+bool CloudAppJob::getTracedFlag() const
+{
+    return tracedFlag;
+}
+
+void CloudAppJob::setTracedFlag(bool flag)
+{
+    this->tracedFlag = flag;
+}
+
 class CloudAppJobDescriptor : public cClassDescriptor
 {
   public:
