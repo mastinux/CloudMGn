@@ -32,7 +32,8 @@ Tracer::~Tracer() {
 }
 
 void Tracer::initialize(){
-    fd.open(par("tracesFileName").stringValue());
+    fd_server_0.open(par("tracesFileName_server0").stringValue());
+    fd_server_1.open(par("tracesFileName_server1").stringValue());
 
     cMessage *msg = new cMessage("messaggioDalTracer");
     simtime_t sendingTime = par("interArrival");
@@ -42,24 +43,31 @@ void Tracer::initialize(){
 
 void Tracer::handleMessage(cMessage *msg){
     simtime_t currentSimTime = simulation.getSimTime();
+
     simtime_t additionalTime = par("interArrival");
     simtime_t tracedTime = currentSimTime + additionalTime;
-    //int jobId = simulation.getEventNumber();
-    simtime_t serviceTime = par("service");
-    simtime_t delayTime = par("delay");
+    simtime_t serviceTime = exponential(par("service").doubleValue());
+    simtime_t delayTime = exponential(par("delay").doubleValue());
+
+    simtime_t additionalTime_1 = par("interArrival");
+    simtime_t tracedTime_1 = currentSimTime + additionalTime_1;
+    simtime_t serviceTime_1 = exponential(par("service").doubleValue());
+    simtime_t delayTime_1 = exponential(par("delay").doubleValue());
 
     EV << " -traced time: " << tracedTime;
     //EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
-    fd << tracedTime.dbl() << " " << serviceTime .dbl() << " " << delayTime .dbl() << endl;
+    fd_server_0 << tracedTime.dbl() << " " << serviceTime.dbl() << " " << delayTime.dbl() << endl;
+    fd_server_1 << tracedTime_1.dbl() << " " << serviceTime_1.dbl() << " " << delayTime_1.dbl() << endl;
 
     scheduleAt(tracedTime, msg);
 }
 
 void Tracer::finish(){
-    fd.close();
+    fd_server_0.close();
+    fd_server_1.close();
 }
 
 } /* namespace cloudMxGn */

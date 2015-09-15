@@ -6,7 +6,8 @@ simple Tracer
         double interArrival;
         double service;
         double delay;
-        string tracesFileName;        
+        string tracesFileName_server0;
+        string tracesFileName_server1;        
 //    gates:
 //        input in;
 //        output out; 

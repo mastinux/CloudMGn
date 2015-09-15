@@ -26,7 +26,8 @@ simple CloudAppTracedSource
         int appId;
         @display("i=block/source,gold");
         // traces file name
-        string tracesFileName;
+        string tracesFileName_server_0;
+        string tracesFileName_server_1;
         string nextJobIdFileName;
     gates:
         output out;

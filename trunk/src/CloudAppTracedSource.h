@@ -27,7 +27,8 @@ class CloudAppTracedSource : public cSimpleModule
     cMessage *timerMessage;
     simtime_t maxInterval;
     // file descriptor for reading
-    std::ifstream fd;
+    std::ifstream fd_server_0;
+    std::ifstream fd_server_1;
 
   public:
      CloudAppTracedSource();
