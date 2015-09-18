@@ -1,0 +1,69 @@
+version 2
+run General-4-20150916-20:46:14-25771
+attr configname General
+attr datetime 20150916-20:46:14
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars $0=5742
+attr iterationvars2 "$0=5742, $repetition=0"
+attr measurement $0=5742
+attr network CloudDataCenterTS
+attr processid 25771
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 4
+attr seedset 4
+
+scalar CloudDataCenterTS.appProc[0].server[0] 	rho 	0.47075843811035
+scalar CloudDataCenterTS.appProc[0].server[0] 	congestionRatio 	0.26213690638542
+scalar CloudDataCenterTS.appProc[0].server[0] 	totalJobs 	6785
+scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsQueue 	0
+scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[0].server[0] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[0].server[1] 	rho 	0.47221446037292
+scalar CloudDataCenterTS.appProc[0].server[1] 	congestionRatio 	0.25185829401016
+scalar CloudDataCenterTS.appProc[0].server[1] 	totalJobs 	6784
+scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsQueue 	0
+scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[0].server[1] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[0].delay[0] 	totalJobs 	6785
+scalar CloudDataCenterTS.appProc[0].delay[0] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[0].delay[0] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[0].delay[1] 	totalJobs 	6783
+scalar CloudDataCenterTS.appProc[0].delay[1] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[0].delay[1] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[1].server[0] 	rho 	0.47839885950089
+scalar CloudDataCenterTS.appProc[1].server[0] 	congestionRatio 	0.25821229815483
+scalar CloudDataCenterTS.appProc[1].server[0] 	totalJobs 	6785
+scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsQueue 	0
+scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[1].server[0] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[1].server[1] 	rho 	0.47670873999596
+scalar CloudDataCenterTS.appProc[1].server[1] 	congestionRatio 	0.2349007576704
+scalar CloudDataCenterTS.appProc[1].server[1] 	totalJobs 	6784
+scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsQueue 	0
+scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[1].server[1] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[1].delay[0] 	totalJobs 	6784
+scalar CloudDataCenterTS.appProc[1].delay[0] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[1].delay[0] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.appProc[1].delay[1] 	totalJobs 	6784
+scalar CloudDataCenterTS.appProc[1].delay[1] 	droppedJobsTimout 	0
+scalar CloudDataCenterTS.appProc[1].delay[1] 	droppedJobsTotal 	0
+scalar CloudDataCenterTS.sink 	avg_responseTime_0 	1.0293320599122
+scalar CloudDataCenterTS.sink 	avg_delayTime_0 	0.099644652981741
+scalar CloudDataCenterTS.sink 	avg_queuingTime_0 	0.17192036464609
+scalar CloudDataCenterTS.sink 	avg_serviceTime_0 	0.69637284617207
+scalar CloudDataCenterTS.sink 	p90_responseTime_0 	2.1282953689805
+scalar CloudDataCenterTS.sink 	p90_delayTime_0 	0.23180872414876
+scalar CloudDataCenterTS.sink 	p90_queuingTime_0 	0.42347855512544
+scalar CloudDataCenterTS.sink 	p90_serviceTime_0 	1.6025536617215
+scalar CloudDataCenterTS.sink 	avg_responseTime_1 	1.0474415848494
+scalar CloudDataCenterTS.sink 	avg_delayTime_1 	0.099385682044994
+scalar CloudDataCenterTS.sink 	avg_queuingTime_1 	0.17894171955425
+scalar CloudDataCenterTS.sink 	avg_serviceTime_1 	0.69656479511907
+scalar CloudDataCenterTS.sink 	p90_responseTime_1 	2.1597224225386
+scalar CloudDataCenterTS.sink 	p90_delayTime_1 	0.23236600753652
+scalar CloudDataCenterTS.sink 	p90_queuingTime_1 	0.44487451844873
+scalar CloudDataCenterTS.sink 	p90_serviceTime_1 	1.567630794339
