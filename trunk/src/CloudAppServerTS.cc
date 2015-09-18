@@ -301,7 +301,11 @@ simtime_t CloudAppServerTS::setupService(CloudAppJob *job) {
     simtime_t t;
     //EV << "Setting up service of " << job->getId() << endl;
     job->setTimestamp();
+
+    //TODO panta: possible trouble
+    // viene letto direttamente dal valore impostato nel file .ini
     t=par("serviceTime").doubleValue();
+
     if (maxServiceTime>0 && t>maxServiceTime){ t=maxServiceTime; }
     setRemainingTime(job, t);
     return t;
@@ -336,7 +340,7 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     ts=job->getTimestamp();
     d=now-ts;
 
-    //TODO continue debugging
+    //TODO panta: continue debugging
     if(!job->getTracedFlag())
         job->setServiceTime(job->getServiceTime() + d);
 

@@ -23,10 +23,12 @@ module CloudAppProcessingDelayPerServerTS
         source.appId = appId;        
         source.sendInterval = default(exponential(1s));
         source.maxInterval = default(-1s);
+        
         // server parameters
         server[*].serviceTime = default(exponential(0.9s));
         server[*].maxServiceTime = default(-1s);
         server[*].timeout = timeout;
+        
         // delay parameters
         delay[*].timeout = timeout;
        	//server.fifo=true
