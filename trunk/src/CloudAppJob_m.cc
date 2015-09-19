@@ -65,6 +65,9 @@ CloudAppJob::CloudAppJob(const char *name, int kind) : ::cMessage(name,kind)
     this->queueCount_var = 0;
     this->delayCount_var = 0;
     this->appId_var = 0;
+    this->jobId_var = 0;
+    this->budgetedServiceTime = 0;
+    this->budgetedDelayTime = 0;
 }
 
 CloudAppJob::CloudAppJob(const CloudAppJob& other) : ::cMessage(other)
@@ -93,6 +96,10 @@ void CloudAppJob::copy(const CloudAppJob& other)
     this->queueCount_var = other.queueCount_var;
     this->delayCount_var = other.delayCount_var;
     this->appId_var = other.appId_var;
+    this->jobId_var = other.jobId_var;
+    this->tracedFlag = other.tracedFlag;
+    this->budgetedServiceTime = other.budgetedServiceTime;
+    this->budgetedDelayTime = other.budgetedDelayTime;
 }
 
 void CloudAppJob::parsimPack(cCommBuffer *b)
@@ -105,6 +112,10 @@ void CloudAppJob::parsimPack(cCommBuffer *b)
     doPacking(b,this->queueCount_var);
     doPacking(b,this->delayCount_var);
     doPacking(b,this->appId_var);
+    doPacking(b,this->jobId_var);
+    doPacking(b,this->tracedFlag);
+    doPacking(b,this->budgetedServiceTime);
+    doPacking(b,this->budgetedDelayTime);
 }
 
 void CloudAppJob::parsimUnpack(cCommBuffer *b)
@@ -117,6 +128,10 @@ void CloudAppJob::parsimUnpack(cCommBuffer *b)
     doUnpacking(b,this->queueCount_var);
     doUnpacking(b,this->delayCount_var);
     doUnpacking(b,this->appId_var);
+    doUnpacking(b,this->jobId_var);
+    doUnpacking(b,this->tracedFlag);
+    doUnpacking(b,this->budgetedServiceTime);
+    doUnpacking(b,this->budgetedDelayTime);
 }
 
 simtime_t CloudAppJob::getStartTime() const
@@ -207,6 +222,26 @@ bool CloudAppJob::getTracedFlag() const
 void CloudAppJob::setTracedFlag(bool flag)
 {
     this->tracedFlag = flag;
+}
+
+simtime_t CloudAppJob::getBudgetedServiceTime() const
+{
+    return budgetedServiceTime;
+}
+
+void CloudAppJob::setBudgetedServiceTime(simtime_t budgetedServiceTime)
+{
+    this->budgetedServiceTime = budgetedServiceTime;
+}
+
+simtime_t CloudAppJob::getBudgetedDelayTime() const
+{
+    return budgetedDelayTime;
+}
+
+void CloudAppJob::setBudgetedDelayTime(simtime_t budgetedDelayTime)
+{
+    this->budgetedDelayTime = budgetedDelayTime;
 }
 
 class CloudAppJobDescriptor : public cClassDescriptor

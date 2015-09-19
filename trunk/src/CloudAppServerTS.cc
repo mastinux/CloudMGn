@@ -41,6 +41,7 @@ CloudAppServerTS::~CloudAppServerTS() {
     cancelAndDelete(endServiceMsg);
     cancelAndDelete(contextSwitchMsg);
     cancelAndDelete(timeoutMsg);
+
 }
 
 void CloudAppServerTS::initialize() {
@@ -302,9 +303,12 @@ simtime_t CloudAppServerTS::setupService(CloudAppJob *job) {
     //EV << "Setting up service of " << job->getId() << endl;
     job->setTimestamp();
 
-    //TODO panta: possible trouble
-    // viene letto direttamente dal valore impostato nel file .ini
-    t=par("serviceTime").doubleValue();
+    //todo differenziato
+    if(!job->getTracedFlag())
+        t=par("serviceTime").doubleValue();
+    else{
+        t=job->getBudgetedServiceTime();
+    }
 
     if (maxServiceTime>0 && t>maxServiceTime){ t=maxServiceTime; }
     setRemainingTime(job, t);
@@ -339,13 +343,14 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     now=simTime();
     ts=job->getTimestamp();
     d=now-ts;
-
-    //TODO panta: continue debugging
-    if(!job->getTracedFlag())
-        job->setServiceTime(job->getServiceTime() + d);
-
+    job->setServiceTime(job->getServiceTime() + d);
     job->setTimestamp();
     cancelTimeout(job);
+
+    EV << "\n stopping job \t" << job->getJobId();
+    EV << "\n with budget service time \t" << job->getBudgetedServiceTime();
+    EV << "\n and actual service time \t" << job->getServiceTime() << "\n" << endl;
+
 }
 
 bool CloudAppServerTS::checkTimeoutExpired(CloudAppJob *job, bool autoremove){
@@ -461,4 +466,3 @@ void CloudAppServerTS::finish()
 }
 
 }; //namespace
-

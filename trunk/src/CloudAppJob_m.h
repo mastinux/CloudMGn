@@ -47,6 +47,8 @@ class CloudAppJob : public ::cMessage
     int appId_var;
     int jobId_var;
     bool tracedFlag = false;
+    simtime_t budgetedServiceTime;
+    simtime_t budgetedDelayTime;
 
   private:
     void copy(const CloudAppJob& other);
@@ -83,6 +85,10 @@ class CloudAppJob : public ::cMessage
     virtual void setJobId(int jobId);
     virtual bool getTracedFlag() const;
     virtual void setTracedFlag(bool flag);
+    virtual simtime_t getBudgetedServiceTime() const;
+    virtual void setBudgetedServiceTime(simtime_t budgetedServiceTime);
+    virtual simtime_t getBudgetedDelayTime() const;
+    virtual void setBudgetedDelayTime(simtime_t budgetedDelayTime);
 };
 
 inline void doPacking(cCommBuffer *b, CloudAppJob& obj) {obj.parsimPack(b);}

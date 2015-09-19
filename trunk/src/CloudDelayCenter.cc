@@ -39,7 +39,14 @@ void CloudDelayCenter::processNewCloudAppJob(cMessage *msg){
     // if it is not a self-message, send it to ourselves with a delay
     currentlyStored++;
     totalJobs++;
-    simtime_t delay = par("delay");
+
+    simtime_t delay;
+    if(!job->getTracedFlag())
+        //original
+        delay = par("delay");
+    else
+        delay = job->getBudgetedDelayTime();
+
     simtime_t now=simTime();
     if (maxDelay>0 && delay>maxDelay) {delay=maxDelay;}
     delay=delay * congestionMultiplier;
@@ -65,9 +72,7 @@ void CloudDelayCenter::processReturningCloudAppJob(cMessage *msg){
     job->setDelayCount(job->getDelayCount()+1);
     simtime_t d = simTime() - job->getSendingTime();
 
-    //TODO panta: continue debugging
-    if(!job->getTracedFlag())
-        job->setDelayTime(job->getDelayTime() + d);
+    job->setDelayTime(job->getDelayTime() + d);
 
     // if it was a self message (ie. we have already delayed) so we send it out
     currentlyStored--;
