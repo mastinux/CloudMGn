@@ -40,6 +40,7 @@ void CloudDelayCenter::processNewCloudAppJob(cMessage *msg){
     currentlyStored++;
     totalJobs++;
 
+    //TODO differentiate cases
     simtime_t delay;
     if(!job->getTracedFlag())
         //original
@@ -77,6 +78,11 @@ void CloudDelayCenter::processReturningCloudAppJob(cMessage *msg){
     // if it was a self message (ie. we have already delayed) so we send it out
     currentlyStored--;
     jobs.erase(job->getId());
+
+    EV << "\n | CloudDelayCenter stopping job \t" << job->getJobId();
+    EV << "\n | with budget delay time \t" << job->getBudgetedDelayTime();
+    EV << "\n | and actual delay time \t" << job->getDelayTime() << "\n" << endl;
+
     /*// remove timeout from job
     cObject * to=job->removeObject(TIMEOUTMESSAGENAME);
     if (to != NULL){

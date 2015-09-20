@@ -303,7 +303,7 @@ simtime_t CloudAppServerTS::setupService(CloudAppJob *job) {
     //EV << "Setting up service of " << job->getId() << endl;
     job->setTimestamp();
 
-    //todo differenziato
+    //TODO differentiate cases
     if(!job->getTracedFlag())
         t=par("serviceTime").doubleValue();
     else{
@@ -347,9 +347,9 @@ void CloudAppServerTS::stopService(CloudAppJob *job) {
     job->setTimestamp();
     cancelTimeout(job);
 
-    EV << "\n stopping job \t" << job->getJobId();
-    EV << "\n with budget service time \t" << job->getBudgetedServiceTime();
-    EV << "\n and actual service time \t" << job->getServiceTime() << "\n" << endl;
+    EV << "\n | CloudAppServerTS stopping job \t" << job->getJobId();
+    EV << "\n | with budget service time \t" << job->getBudgetedServiceTime();
+    EV << "\n | and actual service time \t" << job->getServiceTime() << "\n" << endl;
 
 }
 

@@ -103,8 +103,8 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     next_fd.close();
 
     job->setJobId(nextJobId);
-
-    EV << "\n >>>>>>>>> sending job " << job->getJobId() << " at: " << job->getStartTime() << "\n" << endl;
+    EV << "\n | starting job " << job->getJobId() << " at " << job->getStartTime() << endl;
+    EV << " | BST " << job->getBudgetedServiceTime() << " and BDT " << job->getBudgetedDelayTime() << "\n" << endl;
     send(job, "out");
 
     t=SimTime(tracedTime);

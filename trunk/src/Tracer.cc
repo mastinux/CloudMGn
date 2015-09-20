@@ -42,35 +42,44 @@ void Tracer::initialize(){
 }
 
 void Tracer::handleMessage(cMessage *msg){
+    //double sendInterval = par("interArrival");
+    double sendInterval = par("interArrival").doubleValue();
+    double service = par("service").doubleValue();
+    double delay = par("delay").doubleValue();
     simtime_t currentSimTime = simulation.getSimTime();
 
-    simtime_t additionalTime = par("interArrival");
+    //simtime_t additionalTime = sendInterval;
+    simtime_t additionalTime = exponential(sendInterval);
     simtime_t tracedTime = currentSimTime + additionalTime;
     //dynamic case
-    simtime_t serviceTime = exponential(par("service").doubleValue());
-    simtime_t delayTime = exponential(par("delay").doubleValue());
+    simtime_t serviceTime = exponential(service);
+    simtime_t delayTime = exponential(delay);
     //static case
     //simtime_t serviceTime = par("service");
     //simtime_t delayTime = par("delay");
 
-    simtime_t additionalTime_1 = par("interArrival");
+    //simtime_t additionalTime_1 = sendInterval;
+    simtime_t additionalTime_1 = exponential(sendInterval);
     simtime_t tracedTime_1 = currentSimTime + additionalTime_1;
     //dynamic case
-    simtime_t serviceTime_1 = exponential(par("service").doubleValue());
-    simtime_t delayTime_1 = exponential(par("delay").doubleValue());
+    simtime_t serviceTime_1 = exponential(service);
+    simtime_t delayTime_1 = exponential(delay);
     //static case
     //simtime_t serviceTime_1 = par("service");
     //simtime_t delayTime_1 = par("delay");
-/*
+
     EV << " -traced time: " << tracedTime;
-    //EV << "\t -jobId: " << jobId;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
-*/
-    fd_server_0 << tracedTime.dbl() << " " << serviceTime.dbl() << " " << delayTime.dbl() << endl;
-    fd_server_1 << tracedTime_1.dbl() << " " << serviceTime_1.dbl() << " " << delayTime_1.dbl() << endl;
 
-    scheduleAt(tracedTime, msg);
+    EV << " -traced time: " << tracedTime_1;
+    EV << "\t -service time: " << serviceTime_1;
+    EV << "\t -delay time: " << delayTime_1 << "\n";
+
+    fd_server_0 << tracedTime << " " << serviceTime << " " << delayTime << endl;
+    fd_server_1 << tracedTime_1 << " " << serviceTime_1 << " " << delayTime_1 << endl;
+
+    scheduleAt((tracedTime > tracedTime_1)? tracedTime : tracedTime_1, msg);
 }
 
 void Tracer::finish(){
