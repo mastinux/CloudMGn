@@ -32,8 +32,7 @@ Tracer::~Tracer() {
 }
 
 void Tracer::initialize(){
-    fd_server_0.open(par("tracesFileName_server0").stringValue());
-    fd_server_1.open(par("tracesFileName_server1").stringValue());
+    fd_server_0.open(par("tracesFileName").stringValue());
 
     cMessage *msg = new cMessage("messaggioDalTracer");
     simtime_t sendingTime = par("interArrival");
@@ -42,49 +41,25 @@ void Tracer::initialize(){
 }
 
 void Tracer::handleMessage(cMessage *msg){
-    //double sendInterval = par("interArrival");
-    double sendInterval = par("interArrival").doubleValue();
-    double service = par("service").doubleValue();
-    double delay = par("delay").doubleValue();
     simtime_t currentSimTime = simulation.getSimTime();
 
-    //simtime_t additionalTime = sendInterval;
-    simtime_t additionalTime = exponential(sendInterval);
-    simtime_t tracedTime = currentSimTime + additionalTime;
-    //dynamic case
-    simtime_t serviceTime = exponential(service);
-    simtime_t delayTime = exponential(delay);
-    //static case
-    //simtime_t serviceTime = par("service");
-    //simtime_t delayTime = par("delay");
+    simtime_t additionalTime = par("interArrival");
+    simtime_t serviceTime = par("service");
+    simtime_t delayTime = par("delay");
 
-    //simtime_t additionalTime_1 = sendInterval;
-    simtime_t additionalTime_1 = exponential(sendInterval);
-    simtime_t tracedTime_1 = currentSimTime + additionalTime_1;
-    //dynamic case
-    simtime_t serviceTime_1 = exponential(service);
-    simtime_t delayTime_1 = exponential(delay);
-    //static case
-    //simtime_t serviceTime_1 = par("service");
-    //simtime_t delayTime_1 = par("delay");
+    simtime_t tracedTime = currentSimTime + additionalTime;
 
     EV << " -traced time: " << tracedTime;
     EV << "\t -service time: " << serviceTime;
     EV << "\t -delay time: " << delayTime << "\n";
 
-    EV << " -traced time: " << tracedTime_1;
-    EV << "\t -service time: " << serviceTime_1;
-    EV << "\t -delay time: " << delayTime_1 << "\n";
-
     fd_server_0 << tracedTime << " " << serviceTime << " " << delayTime << endl;
-    fd_server_1 << tracedTime_1 << " " << serviceTime_1 << " " << delayTime_1 << endl;
 
-    scheduleAt((tracedTime > tracedTime_1)? tracedTime : tracedTime_1, msg);
+    scheduleAt(tracedTime, msg);
 }
 
 void Tracer::finish(){
     fd_server_0.close();
-    fd_server_1.close();
 }
 
 } /* namespace cloudMxGn */

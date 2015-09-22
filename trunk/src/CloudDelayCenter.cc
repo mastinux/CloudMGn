@@ -40,7 +40,7 @@ void CloudDelayCenter::processNewCloudAppJob(cMessage *msg){
     currentlyStored++;
     totalJobs++;
 
-    //TODO differentiate cases
+    //TODO my changes
     simtime_t delay;
     if(!job->getTracedFlag())
         //original

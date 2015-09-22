@@ -38,14 +38,11 @@ void CloudAppTracedSource::initialize()
     timerMessage = new cMessage("timer");
     maxInterval = par("maxInterval").doubleValue();
 
-    std::string fileName_server_0((par("tracesFileName_server_0").stringValue()));
-    std::string fileName_server_1((par("tracesFileName_server_1").stringValue()));
+    std::string fileName_server_0((par("tracesFileName").stringValue()));
     std::string fileDirectory("../simulations/");
     std::string filePath_server_0 = fileDirectory + fileName_server_0;
-    std::string filePath_server_1 = fileDirectory + fileName_server_1;
 
     fd_server_0.open(filePath_server_0);
-    fd_server_1.open(filePath_server_1);
 
     std::fstream next_fd;
     next_fd.open("file", std::fstream::out | std::fstream::trunc);
@@ -62,12 +59,7 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     double tracedTime, tracedServiceTime, tracedDelayTime;
     simtime_t t, trand;
 
-    if (par("appId").doubleValue() == 0){
-        fd_server_0 >> tracedTime >> tracedServiceTime >> tracedDelayTime;
-    }
-    else{
-        fd_server_1 >> tracedTime >> tracedServiceTime >> tracedDelayTime;
-    }
+    fd_server_0 >> tracedTime >> tracedServiceTime >> tracedDelayTime;
 
     // create new message
     CloudAppJob *job = new CloudAppJob(getJobName());
@@ -76,10 +68,11 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     job->setStartTime(SimTime(tracedTime));
     job->setQueuingTime(0.0);
 
-    job->setTracedFlag(true);
     job->setServiceTime(0.0);
     job->setDelayTime(0.0);
 
+    //TODO my changes
+    job->setTracedFlag(true);
     job->setBudgetedServiceTime(SimTime(tracedServiceTime));
     job->setBudgetedDelayTime(SimTime(tracedDelayTime));
 
@@ -105,6 +98,7 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
     job->setJobId(nextJobId);
     EV << "\n | starting job " << job->getJobId() << " at " << job->getStartTime() << endl;
     EV << " | BST " << job->getBudgetedServiceTime() << " and BDT " << job->getBudgetedDelayTime() << "\n" << endl;
+
     send(job, "out");
 
     t=SimTime(tracedTime);
@@ -114,7 +108,6 @@ void CloudAppTracedSource::handleMessage(cMessage *msg)
 
 void CloudAppTracedSource::finish(){
     fd_server_0.close();
-    fd_server_1.close();
 }
 
 const char *CloudAppTracedSource::getJobName(){

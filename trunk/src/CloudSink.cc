@@ -124,6 +124,10 @@ void CloudSink::finish()
         recordScalar(avgdtname.str().c_str(), delayTimeStat[i]->getMean());
         recordScalar(avgqtname.str().c_str(), queuingTimeStat[i]->getMean());
         recordScalar(avgstname.str().c_str(), serviceTimeStat[i]->getMean());
+
+        //recordScalar("total_object_count", serviceTimeStat[i]->getTotalObjectCount());
+        //recordScalar("sum", serviceTimeStat[i]->getSum());
+
         recordScalar(p90rtname.str().c_str(), responseTimeStat[i]->getBasepoint(9));
         recordScalar(p90dtname.str().c_str(), delayTimeStat[i]->getBasepoint(9));
         recordScalar(p90qtname.str().c_str(), queuingTimeStat[i]->getBasepoint(9));

@@ -303,7 +303,7 @@ simtime_t CloudAppServerTS::setupService(CloudAppJob *job) {
     //EV << "Setting up service of " << job->getId() << endl;
     job->setTimestamp();
 
-    //TODO differentiate cases
+    //TODO my changes
     if(!job->getTracedFlag())
         t=par("serviceTime").doubleValue();
     else{

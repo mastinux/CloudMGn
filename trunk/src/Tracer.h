@@ -25,9 +25,6 @@ namespace cloudMGn {
 class Tracer : public cSimpleModule{
 private:
     std::ofstream fd_server_0;
-    std::ofstream fd_server_1;
-//    cMessage *event; // pointer to the event object which we'll use for timing
-//    cMessage *msg; // variable to remember the message until we send it back
 
 public:
     Tracer();
